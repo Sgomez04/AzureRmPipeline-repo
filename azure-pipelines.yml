@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'sgomezpro'
+    subscriptionId: '1fb9e50b-5769-454d-a6e7-be010cb8aa26'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'sgomezarmgroup'
+    location: 'West Europe'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/Sgomez04/AzureRmPipeline-repo/main/CreateWebApp/azuredeploy.json'
+    overrideParameters: '-projectName sgomezarm'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
